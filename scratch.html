@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scratch Card</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+            background-size: cover;
+        }
+        h1 {
+            text-align: center;
+            color: #fff;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+        }
+        .scratch-container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            margin: 20px 0;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s ease-in-out;
+        }
+        .scratch-container:hover {
+            transform: scale(1.05);
+        }
+        .scratch-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            border-radius: 15px;
+        }
+        .message {
+            margin-top: 20px;
+            text-align: center;
+            color: #fff;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 10px;
+            border-radius: 10px;
+            width: 80%;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Scratch to Reveal</h1>
+
+    <!-- Scratch containers for 3 images -->
+    <div class="scratch-container">
+        <img src="orla.jpg" class="scratch-image" id="image1">
+        <canvas id="scratchCanvas1"></canvas>
+    </div>
+
+    <div class="scratch-container">
+        <img src="flower.jpg" class="scratch-image" id="image2">
+        <canvas id="scratchCanvas2"></canvas>
+    </div>
+
+    <div class="scratch-container">
+        <img src="moon.jpeg" class="scratch-image" id="image3">
+        <canvas id="scratchCanvas3"></canvas>
+    </div>
+
+    <!-- Message Area -->
+    <div class="message">
+        <p>You have seen all the images but I see no difference between the three. All of them are beautiful!</p>
+    </div>
+    <div>
+        <a href="index.html" class="btn">to the start</a>
+       
+    </div>
+    <script>
+        const canvases = ['scratchCanvas1', 'scratchCanvas2', 'scratchCanvas3'];
+        canvases.forEach(canvasId => {
+            const canvas = document.getElementById(canvasId);
+            const ctx = canvas.getContext('2d');
+            let isDrawing = false;
+
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+
+            ctx.fillStyle = '#ccc';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            canvas.addEventListener('mousedown', startDrawing);
+            canvas.addEventListener('mousemove', draw);
+            canvas.addEventListener('mouseup', stopDrawing);
+            canvas.addEventListener('touchstart', startDrawing);
+            canvas.addEventListener('touchmove', draw);
+            canvas.addEventListener('touchend', stopDrawing);
+
+            function startDrawing(e) {
+                isDrawing = true;
+                draw(e);
+            }
+
+            function draw(e) {
+                if (!isDrawing) return;
+
+                const rect = canvas.getBoundingClientRect();
+                const x = (e.clientX || e.touches[0].clientX) - rect.left;
+                const y = (e.clientY || e.touches[0].clientY) - rect.top;
+
+                ctx.globalCompositeOperation = 'destination-out';
+                ctx.beginPath();
+                ctx.arc(x, y, 20, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            function stopDrawing() {
+                isDrawing = false;
+            }
+        });
+    </script>
+
+</body>
+</html>

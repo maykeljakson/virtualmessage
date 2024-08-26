@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rate Yourself</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #fad0c4 0%, #ffd1ff 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            text-align: center;
+        }
+        h1 {
+            margin-top: 0;
+        }
+        .btn {
+            display: inline-block;
+            margin: 10px;
+            padding: 10px 20px;
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .btn:hover {
+            background: #0056b3;
+        }
+        input[type="range"] {
+            width: 100%;
+        }
+        output {
+            display: block;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>How Are You?</h1>
+        <form>
+            <label for="rating">Rate yourself from 1 to 5:</label>
+            <input type="range" id="rating" name="rating" min="1" max="5">
+            <output for="rating" id="ratingValue">3</output>
+            <div>
+                <a href="playlist.html" class="btn">Previous</a>
+                <a href="letter.html" class="btn">Next</a>
+            </div>
+        </form>
+        <h1>Rate Your Meal?</h1>
+        <form>
+            <label for="rating">Rate yourself from 1 to 5:</label>
+            <input type="range" id="rating" name="rating" min="1" max="5">
+            <output for="rating" id="ratingValue">3</output>
+            <div>
+                <a href="playlist.html" class="btn">Previous</a>
+                <a href="letter.html" class="btn">Next</a>
+            </div>
+        </form>
+        <h1>Is your daily life well?</h1>
+        <form>
+            <label for="rating">Rate yourself from 1 to 5:</label>
+            <input type="range" id="rating" name="rating" min="1" max="5">
+            <output for="rating" id="ratingValue">3</output>
+            <div>
+                <a href="playlist.html" class="btn">Previous</a>
+                <a href="letter.html" class="btn">Next</a>
+            </div>
+        </form>
+    </div>
+    <script>
+        const rating = document.getElementById('rating');
+        const ratingValue = document.getElementById('ratingValue');
+        rating.addEventListener('input', () => {
+            ratingValue.textContent = rating.value;
+        });
+    </script>
+</body>
+</html>
